@@ -8,8 +8,23 @@
 
 #include "ofxOpenCv.h"
 
+#include <Kinect.h>
+#include <Windows.h>
+
 using namespace cv;
 using namespace std;
+
+/*
+template
+inline void SafeRelease( Interface *& pInterfaceToRelease )
+{
+	if( pInterfaceToRelease != NULL ){
+		pInterfaceToRelease->Release();
+		pInterfaceToRelease = NULL;
+	}
+}
+*/
+
 
 class ofAppKinectSimple : public ofBaseApp{
 
@@ -29,9 +44,31 @@ class ofAppKinectSimple : public ofBaseApp{
 		void gotMessage(ofMessage msg);
 
 
-		void testopenCV3module(void);
+		bool initializeKinectv2();
 
-		ofxCvColorImage ofxImage;
-		ofVideoGrabber 		vidGrabber;
+		IKinectSensor*	pSensor;
+		IDepthFrameSource* pDepthSource;
+		IColorFrameSource* pColorSource;
+		IBodyFrameSource* pBodySource;
+
+		IColorFrameReader* pColorReader;
+		IBodyFrameReader* pBodyReader;
+		IDepthFrameReader* pDepthReader;
+
+		IFrameDescription* pDepthDescription;
+		IFrameDescription* pColorDescription;
+
+		ICoordinateMapper* pCoordinateMapper;
 		
+
+		// buffer
+		ofxCvGrayscaleImage grayscaleImage;
+		ofxCvColorImage colorscaleImage;
+
+		// 
+		int depthWidth, depthHeight;
+		unsigned int depthBufferSize;
+
+		int colorWidth, colorHeight;
+		unsigned int colorBufferSize;
 };
