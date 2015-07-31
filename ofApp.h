@@ -2,6 +2,15 @@
 
 #include "ofMain.h"
 
+#include <opencv2/core/core.hpp>
+#include <opencv2/highgui/highgui.hpp>
+#include <iostream>
+
+#include "ofxOpenCv.h"
+
+using namespace cv;
+using namespace std;
+
 class ofApp : public ofBaseApp{
 
 	public:
@@ -18,5 +27,11 @@ class ofApp : public ofBaseApp{
 		void windowResized(int w, int h);
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
+
+
+		void testopenCV3module(void);
+
+		ofxCvColorImage ofxImage;
+		ofVideoGrabber 		vidGrabber;
 		
 };
