@@ -1,6 +1,7 @@
 #include "ofMain.h"
 #include "ofApp.h"
 #include "ofAppKinectSimple.h"
+#include "ofAppKinectSample.h"
 
 //========================================================================
 int main( ){
@@ -11,5 +12,6 @@ int main( ){
 	// pass in width and height too:
 	
 	//ofRunApp(new ofApp());  // test with openCV3
-	ofRunApp(new ofAppKinectSimple()); // test with kinect sdk
+	//ofRunApp(new ofAppKinectSimple()); // test with kinect sdk
+	ofRunApp(new ofAppKinectSample()); 
 }
