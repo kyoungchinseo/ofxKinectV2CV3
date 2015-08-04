@@ -3,6 +3,11 @@
 
 ofKinectV2Sensor::ofKinectV2Sensor(void)
 {
+	this->bColorMode = true;
+	this->bDepthMode = true;
+	this->bBodyMode = false;
+	this->bBodyIndexMode = false;
+	this->bAudioMode = false;
 }
 
 
@@ -10,7 +15,7 @@ ofKinectV2Sensor::~ofKinectV2Sensor(void)
 {
 }
 
-bool ofKinectV2Sensor::initializeKinectv2() {
+bool ofKinectV2Sensor::init() {
 	HRESULT hResult = S_OK;
 
 	// Open Kinect
@@ -85,8 +90,21 @@ bool ofKinectV2Sensor::initializeKinectv2() {
 	this->grayscaleImage.allocate(depthHeight, depthWidth);
 	this->colorscaleImage.allocate(colorHeight, colorWidth);
 
+}
 
+bool ofKinectV2Sensor::init(bool colorMode, bool depthMode, bool bodyMode, bool bodyIndexMode, bool audioMode)
+{
+	bColorMode = colorMode;
+	bDepthMode = depthMode;
+	bBodyMode = bodyMode;
+	bBodyIndexMode = bodyIndexMode;
+	bAudioMode  = audioMode;
 
+	if (!this->init()) {
+		return true;
+	} else {
+		return false;
+	}
 }
 
 void ofKinectV2Sensor::update()

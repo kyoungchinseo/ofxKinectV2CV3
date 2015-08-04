@@ -11,7 +11,7 @@ void ofAppKinectSample::setup(){
 
 	kinect = new ofKinectV2Sensor();
 
-	if (!kinect->initializeKinectv2())
+	if (!kinect->init())
 		exit();
 }
 

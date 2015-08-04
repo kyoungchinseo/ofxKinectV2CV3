@@ -20,25 +20,34 @@ public:
 	ofKinectV2Sensor(void);
 	~ofKinectV2Sensor(void);
 
-	bool initializeKinectv2();
+	bool init();
+	bool init(bool colorMode, bool depthMode, bool bodyMode, bool bodyIndexMode, bool audioMode);
 	void update();
 	void draw();
 public:
 
-	IKinectSensor*	pSensor;
-	IDepthFrameSource* pDepthSource;
-	IColorFrameSource* pColorSource;
-	IBodyFrameSource* pBodySource;
+	IKinectSensor*		pSensor;
 
-	IColorFrameReader* pColorReader;
-	IBodyFrameReader* pBodyReader;
-	IDepthFrameReader* pDepthReader;
+	IDepthFrameSource*	pDepthSource;
+	IColorFrameSource*	pColorSource;
+	IBodyFrameSource*	pBodySource;
 
-	IFrameDescription* pDepthDescription;
-	IFrameDescription* pColorDescription;
+	IColorFrameReader*	pColorReader;
+	IBodyFrameReader*	pBodyReader;
+	IDepthFrameReader*	pDepthReader;
 
-	ICoordinateMapper* pCoordinateMapper;
+	IFrameDescription*	pDepthDescription;
+	IFrameDescription*	pColorDescription;
+
+	ICoordinateMapper*	pCoordinateMapper;
 		
+	// flags
+	bool bColorMode;
+	bool bDepthMode;
+	bool bBodyIndexMode;
+	bool bBodyMode;
+	bool bAudioMode;
+
 
 	// buffer
 	ofxCvGrayscaleImage grayscaleImage;
