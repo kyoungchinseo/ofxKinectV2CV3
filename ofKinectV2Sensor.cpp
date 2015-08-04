@@ -5,7 +5,7 @@ ofKinectV2Sensor::ofKinectV2Sensor(void)
 {
 	this->bColorMode = true;
 	this->bDepthMode = true;
-	this->bBodyMode = false;
+	this->bBodyMode = true;
 	this->bBodyIndexMode = false;
 	this->bAudioMode = false;
 }
@@ -30,55 +30,99 @@ bool ofKinectV2Sensor::init() {
  		return false;
  	}
 
- 	// Open Source
- 	hResult = this->pSensor->get_ColorFrameSource( &this->pColorSource );
-	if( FAILED( hResult ) ){
-		std::cerr << "Error : IKinectSensor::get_ColorFrameSource()" << std::endl;
- 		return false;
- 	}
- 	hResult = this->pSensor->get_BodyFrameSource( &this->pBodySource );
-	if( FAILED( hResult ) ){
-		std::cerr << "Error : IKinectSensor::get_BodyFrameSource()" << std::endl;
- 		return false;
- 	}
- 	hResult = pSensor->get_DepthFrameSource( &this->pDepthSource );
-	if( FAILED( hResult ) ){
-		std::cerr << "Error : IKinectSensor::get_DepthFrameSource()" << std::endl;
- 		return false;
- 	}
- 	// Open Reader
- 	hResult = this->pColorSource->OpenReader( &this->pColorReader );
-	if( FAILED( hResult ) ){
-		std::cerr << "Error : IColorFrameSource::OpenReader()" << std::endl;
- 		return false;
- 	}
- 	hResult = this->pBodySource->OpenReader( &this->pBodyReader );
-	if( FAILED( hResult ) ){
-		std::cerr << "Error : IBodyFrameSource::OpenReader()" << std::endl;
- 		return false;
- 	}
- 	hResult = this->pDepthSource->OpenReader( &this->pDepthReader );
-	if( FAILED( hResult ) ){
-		std::cerr << "Error : IDepthFrameSource::OpenReader()" << std::endl;
- 		return false;
- 	}
- 	// get descriptions
- 	hResult = pDepthSource->get_FrameDescription( &this->pDepthDescription );
-	if( FAILED( hResult ) ){
-		std::cerr << "Error : IDepthFrameSource::get_FrameDescription()" << std::endl;
- 		return false;
- 	}
- 	hResult = pColorSource->get_FrameDescription( &this->pColorDescription );
-	if( FAILED( hResult ) ){
-		std::cerr << "Error : IColorFrameSource::get_FrameDescription()" << std::endl;
- 		return false;
- 	}
- 	// get coordinate mapper
- 	hResult = this->pSensor->get_CoordinateMapper( &this->pCoordinateMapper );
-	if( FAILED( hResult ) ){
-		std::cerr << "Error : IKinectSensor::get_CoordinateMapper()" << std::endl;
- 		return false;
- 	}
+	if (bColorMode) {
+		// source
+ 		hResult = this->pSensor->get_ColorFrameSource( &this->pColorSource );
+		if( FAILED( hResult ) ){
+			std::cerr << "Error : IKinectSensor::get_ColorFrameSource()" << std::endl;
+ 			return false;
+ 		}
+		// reader
+		hResult = this->pColorSource->OpenReader( &this->pColorReader );
+		if( FAILED( hResult ) ){
+			std::cerr << "Error : IColorFrameSource::OpenReader()" << std::endl;
+ 			return false;
+ 		}
+		// description
+		hResult = pColorSource->get_FrameDescription( &this->pColorDescription );
+		if( FAILED( hResult ) ){
+			std::cerr << "Error : IColorFrameSource::get_FrameDescription()" << std::endl;
+ 			return false;
+ 		}
+	}
+
+	if (bDepthMode) {
+		// source
+		hResult = pSensor->get_DepthFrameSource( &this->pDepthSource );
+		if( FAILED( hResult ) ){
+			std::cerr << "Error : IKinectSensor::get_DepthFrameSource()" << std::endl;
+ 			return false;
+ 		}
+		// reader
+		hResult = this->pDepthSource->OpenReader( &this->pDepthReader );
+		if( FAILED( hResult ) ){
+			std::cerr << "Error : IDepthFrameSource::OpenReader()" << std::endl;
+ 			return false;
+ 		}
+		// description
+		hResult = pDepthSource->get_FrameDescription( &this->pDepthDescription );
+		if( FAILED( hResult ) ){
+			std::cerr << "Error : IDepthFrameSource::get_FrameDescription()" << std::endl;
+ 			return false;
+ 		}
+	}
+
+	if (bBodyMode) {
+		// source
+		hResult = this->pSensor->get_BodyFrameSource( &this->pBodySource );
+		if( FAILED( hResult ) ){
+			std::cerr << "Error : IKinectSensor::get_BodyFrameSource()" << std::endl;
+ 			return false;
+ 		}
+ 		// reader
+ 		hResult = this->pBodySource->OpenReader( &this->pBodyReader );
+		if( FAILED( hResult ) ){
+			std::cerr << "Error : IBodyFrameSource::OpenReader()" << std::endl;
+ 			return false;
+ 		}
+		// get coordinate mapper
+ 		hResult = this->pSensor->get_CoordinateMapper( &this->pCoordinateMapper );
+		if( FAILED( hResult ) ){
+			std::cerr << "Error : IKinectSensor::get_CoordinateMapper()" << std::endl;
+ 			return false;
+ 		}
+	}
+
+	if (bBodyIndexMode) {
+		// source
+		hResult = pSensor->get_BodyIndexFrameSource( &this->pBodyIndexSource );
+		if( FAILED( hResult ) ){
+			std::cerr << "Error : IKinectSensor::get_BodyIndexFrameSource()" << std::endl;
+ 			return false;
+ 		}
+		// reader
+		hResult = this->pBodyIndexSource->OpenReader( &this->pBodyIndexReader );
+		if( FAILED( hResult ) ){
+			std::cerr << "Error : IBodyIndexFrameSource::OpenReader()" << std::endl;
+ 			return false;
+ 		}
+	}
+
+	if (bAudioMode) {
+		// source
+		hResult = pSensor->get_AudioSource( &this->pAudioSource );
+		if( FAILED( hResult ) ){
+			std::cerr << "Error : IKinectSensor::get_AudioSource()" << std::endl;
+ 			return false;
+ 		}
+		// reader
+		hResult = this->pAudioSource->OpenReader( &this->pAudioReader );
+		if( FAILED( hResult ) ){
+			std::cerr << "Error : IAudioSource::OpenReader()" << std::endl;
+ 			return false;
+ 		}
+	}
+ 	
  	this->pDepthDescription->get_Width( &depthWidth ); // 512
 	this->pDepthDescription->get_Height( &depthHeight ); // 424
 	this->depthBufferSize = depthWidth * depthHeight * sizeof( unsigned short );
@@ -90,6 +134,7 @@ bool ofKinectV2Sensor::init() {
 	this->grayscaleImage.allocate(depthHeight, depthWidth);
 	this->colorscaleImage.allocate(colorHeight, colorWidth);
 
+	cout << depthWidth << ":" << colorWidth << endl;
 }
 
 bool ofKinectV2Sensor::init(bool colorMode, bool depthMode, bool bodyMode, bool bodyIndexMode, bool audioMode)

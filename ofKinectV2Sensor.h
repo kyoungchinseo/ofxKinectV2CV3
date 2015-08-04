@@ -28,13 +28,18 @@ public:
 
 	IKinectSensor*		pSensor;
 
-	IDepthFrameSource*	pDepthSource;
 	IColorFrameSource*	pColorSource;
+	IDepthFrameSource*	pDepthSource;
 	IBodyFrameSource*	pBodySource;
+	IBodyIndexFrameSource *pBodyIndexSource;
+	IAudioSource*		pAudioSource;
+
 
 	IColorFrameReader*	pColorReader;
-	IBodyFrameReader*	pBodyReader;
 	IDepthFrameReader*	pDepthReader;
+	IBodyFrameReader*	pBodyReader;
+	IBodyIndexFrameReader *pBodyIndexReader;
+	IAudioBeamFrameReader *pAudioReader;
 
 	IFrameDescription*	pDepthDescription;
 	IFrameDescription*	pColorDescription;
