@@ -23,6 +23,11 @@ public:
 
 	bool init();
 	bool init(bool colorMode, bool depthMode, bool bodyMode, bool bodyIndexMode, bool audioMode);
+	bool initColorMode();
+	bool initDepthMode();
+	bool initBodyMode();
+	bool initBodyIndexMode();
+	bool initAudioMode();
 	void update();
 	void updateDepthMap();
 	void updateColorImage();
@@ -35,7 +40,8 @@ public:
 	void drawBodyIndex(float x, float y, float width, float height);
 	void drawBodySkeleton(float x, float y, float width, float height);
 	void drawAuidoBeam(void);
-public:
+
+private:
 
 	IKinectSensor*		pSensor;
 
@@ -64,6 +70,7 @@ public:
 	bool bBodyMode;
 	bool bAudioMode;
 
+	// image for display
 	ofxCvColorImage kinectColorImage;
 	ofxCvColorImage kinectBodyImage;
 	ofxCvColorImage kinectBodyIndexMap;
@@ -86,6 +93,8 @@ public:
 	Mat bodyMat;
 
 	Mat bodyIndexMat;
+
+	//
 
 };
 
