@@ -13,6 +13,7 @@
 using namespace cv;
 using namespace std;
 
+#define M_PI 3.141592
 
 class ofKinectV2Sensor
 {
@@ -23,7 +24,17 @@ public:
 	bool init();
 	bool init(bool colorMode, bool depthMode, bool bodyMode, bool bodyIndexMode, bool audioMode);
 	void update();
+	void updateDepthMap();
+	void updateColorImage();
+	void updateBodyMap();
+	void updateBodyIndex();
+	void updateAudio();
 	void draw();
+	void drawColorImage(float x, float y, float width, float height);
+	void drawDepthMap(float x, float y,  float width, float height);
+	void drawBodyIndex(float x, float y, float width, float height);
+	void drawBodySkeleton(float x, float y, float width, float height);
+	void drawAuidoBeam(void);
 public:
 
 	IKinectSensor*		pSensor;
@@ -53,10 +64,10 @@ public:
 	bool bBodyMode;
 	bool bAudioMode;
 
-
-	// buffer
-	ofxCvGrayscaleImage grayscaleImage;
-	ofxCvColorImage colorscaleImage;
+	ofxCvColorImage kinectColorImage;
+	ofxCvColorImage kinectBodyImage;
+	ofxCvColorImage kinectBodyIndexMap;
+	ofxCvGrayscaleImage kinectDepthMap;
 
 	// 
 	int depthWidth, depthHeight;
@@ -64,5 +75,17 @@ public:
 
 	int colorWidth, colorHeight;
 	unsigned int colorBufferSize;
+
+	Mat depthBufferMat;
+	Mat depthMat;
+
+	Mat colorBufferMat;
+	Mat colorMat;
+
+	Mat bodyBufferMat;
+	Mat bodyMat;
+
+	Mat bodyIndexMat;
+
 };
 

@@ -4,18 +4,6 @@
 
 #include "ofKinectV2Sensor.h"
 
-/*
-template
-inline void SafeRelease( Interface *& pInterfaceToRelease )
-{
-	if( pInterfaceToRelease != NULL ){
-		pInterfaceToRelease->Release();
-		pInterfaceToRelease = NULL;
-	}
-}
-*/
-
-
 class ofAppKinectSample : public ofBaseApp{
 
 	public:

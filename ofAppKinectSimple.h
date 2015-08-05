@@ -14,17 +14,6 @@
 using namespace cv;
 using namespace std;
 
-/*
-template
-inline void SafeRelease( Interface *& pInterfaceToRelease )
-{
-	if( pInterfaceToRelease != NULL ){
-		pInterfaceToRelease->Release();
-		pInterfaceToRelease = NULL;
-	}
-}
-*/
-
 
 class ofAppKinectSimple : public ofBaseApp{
 
